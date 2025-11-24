@@ -9,7 +9,7 @@ export default function BatalhasPage() {
 
       {/* Gallery Section */}
       <section className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27].map((i) => (
+        {[ 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27].map((i) => (
           <div
             key={i}
             className="group relative overflow-hidden rounded-xl shadow-lg transform hover:scale-105 transition duration-300"

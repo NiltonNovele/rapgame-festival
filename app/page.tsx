@@ -35,7 +35,7 @@ export default function HomePage() {
   ];
 
   const featuredArtists = [
-    { name: "Djimetta", img: "/artists/1.jpg" },
+    { name: "Djimetta", img: "/djimmy.png" },
     { name: "Jay Arghh", img: "/artists/2.jpg" },
     { name: "Trez Agah", img: "/artists/6.jpg" },
   ];
