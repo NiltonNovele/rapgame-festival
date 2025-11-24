@@ -43,29 +43,42 @@ export default function HomePage() {
   return (
     <main className="bg-black text-white font-sans">
       {/* Hero Section */}
-      <section className="relative h-screen w-full flex flex-col items-center justify-center text-center px-6">
-        <h1 className="text-5xl md:text-6xl font-extrabold text-red-600 mb-4 animate-fade-in">
-          RAP GAME HIP-HOP FESTIVAL
-        </h1>
-        <p className="text-xl md:text-2xl text-white mb-8 animate-fade-in delay-100">
-          13 de Dezembro de 2025 - Desportivo de Maputo
-        </p>
-        <div className="flex justify-center gap-4 flex-wrap animate-fade-in delay-200">
-          <a
-            href="/bilhetes"
-            className="bg-gradient-to-r from-red-600 to-red-500 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transform transition shadow-lg"
-          >
-            Comprar Bilhete
-          </a>
-          <a
-            href="/cert.pdf"
-            className="bg-gray-800 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transform transition shadow-lg"
-          >
-            Documentação Legal
-          </a>
-        </div>
-      </section>
+    <section className="relative h-screen w-full flex flex-col md:flex-row items-center justify-center px-6 gap-8">
+  {/* Text Content */}
+  <div className="flex-1 text-center md:text-left">
+    <h1 className="text-5xl md:text-6xl font-extrabold text-red-600 mb-4 animate-fade-in">
+      RAP GAME HIP-HOP FESTIVAL
+    </h1>
+    <p className="text-xl md:text-2xl text-white mb-8 animate-fade-in delay-100">
+      13 de Dezembro de 2025 - Desportivo de Maputo
+    </p>
+    <div className="flex justify-center md:justify-start gap-4 flex-wrap animate-fade-in delay-200">
+      <a
+        href="/bilhetes"
+        className="bg-gradient-to-r from-red-600 to-red-500 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transform transition shadow-lg"
+      >
+        Comprar Bilhete
+      </a>
+      {/* <a
+        href="/cert.pdf"
+        className="bg-gray-800 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transform transition shadow-lg"
+      >
+        Documentação Legal
+      </a> */}
+    </div>
+  </div>
 
+  {/* Hero Image */}
+  <div className="flex-1 relative w-full h-96 md:h-[500px]">
+    <Image
+      src="/cartaz.jpg"
+      alt="Hero Image"
+      fill
+      className="object-cover rounded-3xl shadow-2xl"
+      priority
+    />
+  </div>
+</section>
       {/* Countdown Section */}
       <section className="py-20 px-6 text-center max-w-7xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-red-600 mb-12">

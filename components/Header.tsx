@@ -85,16 +85,13 @@ export default function Header() {
     >
       <FlameIcon className="w-4 h-4" /> Performance
     </Link>
-
-    
-
     <Link
       href="/contacto"
       className="flex items-center gap-1 hover:text-red-500"
     >
       <MailIcon className="w-4 h-4" /> Contacto
     </Link>
-
+        
     {/* Developer credit */}
     <div className="pt-4 border-t border-zinc-700 text-center text-xs text-zinc-500">
       Desenvolvido pela{" "}
