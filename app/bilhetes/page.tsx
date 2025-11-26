@@ -66,7 +66,7 @@ const handlePayment = async () => {
     console.log("✅ Pagamento criado:", data);
 
     // 🔹 Timeout de segurança
-    const checkoutTimeout = setTimeout(() => {
+    setTimeout(() => {
       setLoadingPayment(false);
       alert(
         "⚠️ O pagamento demorou demasiado a iniciar. Por favor, tenta novamente."
