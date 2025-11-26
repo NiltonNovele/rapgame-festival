@@ -37,7 +37,7 @@ export default function BilheteSucesso() {
         status: "pending",
       };
       setTicket(newTicket);
-    } catch (err) {
+    } catch {
       setError("Erro ao gerar o bilhete.");
     } finally {
       setLoading(false);
@@ -82,9 +82,13 @@ export default function BilheteSucesso() {
       }
 
       setSaved(true);
-    } catch (err: any) {
-      alert(err.message);
-    } finally {
+   } catch (err: unknown) {
+  if (err instanceof Error) {
+    alert(err.message);
+  } else {
+    alert("Ocorreu um erro inesperado.");
+  }
+} finally {
       setLoading(false);
     }
   };
