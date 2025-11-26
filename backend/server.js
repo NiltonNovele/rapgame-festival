@@ -19,7 +19,9 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:3000",
-    "https://rapgame-festival.vercel.app"
+    "rapgamefestival.vercel.app",
+    "https://rapgamefestival.vercel.app",
+    "https://www.rapgamefestival.vercel.app"
   ],
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],

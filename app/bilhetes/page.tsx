@@ -38,8 +38,8 @@ const handlePayment = async () => {
 
     // 🔹 URL do backend
     // const API_URL = "https://rapgame-festival.vercel.app/api/payments/create";
-    //const API_URL = "https://api.bolaocesto.com/api/payments/create";
-    const API_URL = "/api/payments/create";
+    const API_URL = "https://api.bolaocesto.com/api/payments/create";
+    
 
     // 🔹 Dados enviados ao servidor
     const payload = {
