@@ -71,7 +71,7 @@ export default function HomePage() {
   {/* Hero Image */}
   <div className="flex-1 relative w-full h-96 md:h-[500px]">
     <Image
-      src="/cartaz.jpg"
+      src="/cartazm.jpg"
       alt="Hero Image"
       fill
       className="object-cover rounded-3xl shadow-2xl"
@@ -121,18 +121,21 @@ export default function HomePage() {
       </section>
 
       {/* Flyers Section */}
-     <section className="py-20 px-6 max-w-7xl mx-auto text-center">
+     <section className="py-20 px-6 max-w-7xl mx-auto">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-    <div className="relative bg-zinc-800 rounded-3xl overflow-hidden shadow-2xl h-96 transform transition hover:scale-105 duration-300">
+    
+    {/* Flyer 1 */}
+    <div className="relative bg-zinc-800 rounded-3xl overflow-hidden shadow-2xl aspect-[3/4] transform transition hover:scale-105 duration-300">
       <Image
-        src="/cartaz.jpg"
+        src="/cartazm.jpg"
         alt="Flyer 1"
         fill
         className="object-cover rounded-3xl"
       />
     </div>
 
-    <div className="relative bg-zinc-800 rounded-3xl overflow-hidden shadow-2xl h-96 transform transition hover:scale-105 duration-300">
+    {/* Flyer 2 */}
+    <div className="relative bg-zinc-800 rounded-3xl overflow-hidden shadow-2xl aspect-[3/4] transform transition hover:scale-105 duration-300">
       <Image
         src="/cartaz2.jpg"
         alt="Flyer 2"
@@ -140,8 +143,10 @@ export default function HomePage() {
         className="object-cover rounded-3xl"
       />
     </div>
+
   </div>
 </section>
+
 
 
       {/* Tickets Section */}

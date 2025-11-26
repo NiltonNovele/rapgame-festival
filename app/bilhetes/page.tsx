@@ -14,6 +14,79 @@ export default function BilhetesPage() {
     vipDoor: 1500,
   };
 
+  const [loadingPayment, setLoadingPayment] = useState(false);
+
+const handlePayment = async () => {
+  try {
+    setLoadingPayment(true);
+
+    // 🔹 PREÇO REAL (com base no tipo)
+    const ticketPrices = {
+      normal: 2,
+      vip: 2,
+    };
+
+    const price =
+      ticketType === "normal"
+        ? ticketPrices.normal
+        : ticketPrices.vip;
+
+    const amount = price * quantity;
+
+    // 🔹 Descrição
+    const description = `Compra de ${quantity} bilhete(s) do Rap Game Festival – Tipo: ${ticketType.toUpperCase()}`;
+
+    // 🔹 URL do backend
+    // const API_URL = "https://rapgame-festival.vercel.app/api/payments/create";
+    const API_URL = "https://api.bolaocesto.com/api/payments/create";
+
+    // 🔹 Dados enviados ao servidor
+    const payload = {
+      amount,
+      reference: `RAPGAMEFESTIVAL`,
+      description,
+      return_url: "https://rapgame-festival.vercel.app/sucesso",
+    };
+
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+
+    if (data.status !== "success" || !data.data?.checkout_url) {
+      console.error("❌ Erro no pagamento:", data);
+      alert("❌ Ocorreu um erro ao iniciar o pagamento. Tenta novamente.");
+      setLoadingPayment(false);
+      return;
+    }
+
+    console.log("✅ Pagamento criado:", data);
+
+    // 🔹 Timeout de segurança
+    const checkoutTimeout = setTimeout(() => {
+      setLoadingPayment(false);
+      alert(
+        "⚠️ O pagamento demorou demasiado a iniciar. Por favor, tenta novamente."
+      );
+    }, 15000);
+
+    // 🔹 Abre o checkout na MESMA aba
+    window.location.href = data.data.checkout_url;
+
+    // Não verificamos popup porque não há nova janela
+
+  } catch (err) {
+    console.error("❌ Erro no pagamento:", err);
+    alert("❌ Erro de rede. Verifica a tua ligação e tenta novamente.");
+  } finally {
+    setLoadingPayment(false);
+  }
+};
+
+
   const price = ticketType === "normal" ? ticketPrices.normal : ticketPrices.vip;
 
   return (
@@ -27,7 +100,7 @@ export default function BilhetesPage() {
         <div className="flex-1 bg-zinc-800 p-6 rounded-3xl shadow-2xl flex flex-col gap-6">
           <div className="w-full flex justify-center">
             <Image
-              src="/cartaz.jpg"
+              src="/cartazm.jpg"
               alt="Rapódromo Live"
               width={800}
               height={450}
@@ -92,7 +165,7 @@ export default function BilhetesPage() {
 
             <div className="flex justify-between items-center mb-4">
               <p className="text-lg">
-                Rapódromo Final 2024 ({quantity}x {ticketType === "normal" ? "Normal" : "VIP"})
+                Hip-Hop Festival ({quantity}x {ticketType === "normal" ? "Normal" : "VIP"})
               </p>
               <p className="font-semibold">{(price * quantity).toLocaleString()} Mt</p>
             </div>
@@ -111,9 +184,9 @@ export default function BilhetesPage() {
               </div>
             </div>
 
-            <button className="bg-green-600 hover:bg-green-700 w-full py-3 rounded-full font-semibold text-lg transition">
-              Finalizar Compra
-            </button>
+          <button onClick={handlePayment} disabled={loadingPayment} className="bg-green-600 hover:bg-green-700 w-full py-3 rounded-full font-semibold text-lg transition disabled:opacity-50" >
+            {loadingPayment ? "Processando..." : "Finalizar Compra"}
+          </button>
           </div>
         </div>
       </div>

@@ -39,16 +39,7 @@ export default function Footer() {
           <FaInstagram />
         </a>
         <a href="#" className="hover:text-red-500">
-          <FaYoutube />
-        </a>
-        <a href="#" className="hover:text-red-500">
           <FaTiktok />
-        </a>
-        <a href="#" className="hover:text-red-500">
-          <FaSpotify />
-        </a>
-        <a href="#" className="hover:text-red-500">
-          <FaApple />
         </a>
         <a href="#" className="hover:text-red-500">
           <FaFacebook />

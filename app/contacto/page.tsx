@@ -47,7 +47,7 @@ export default function ContactoPage() {
         {/* Flyer on the right */}
         <section className="flex justify-center">
           <img
-            src="/cartaz.jpg"
+            src="/cartazm.jpg"
             alt="Flyer do Evento"
             className="w-full max-w-md rounded-xl shadow-xl"
           />
