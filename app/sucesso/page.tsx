@@ -19,13 +19,12 @@ export default function BilheteSucesso() {
 
   const router = useRouter();
 
-  const API_BASE = "https://api.bolaocesto.com";
-
+   const API_BASE = "https://api.bolaocesto.com";
 
   // Generate unique BAC code
   const generateTicketCode = (): string => {
     const randomPart = () => Math.floor(100 + Math.random() * 900).toString();
-    return `BAC-${randomPart()}-${randomPart()}-${randomPart()}-STX`;
+    return `RGF-${randomPart()}-${randomPart()}-${randomPart()}-STX`;
   };
 
   // On page load, generate a ticket object
@@ -63,7 +62,7 @@ export default function BilheteSucesso() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          orderId: ticket._id,
+          ticketCode: ticket.ticketCode,
           fullName,
           phone,
           tickets: [

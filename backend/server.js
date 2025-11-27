@@ -5,27 +5,37 @@ import crypto from "crypto";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
+dotenv.config();
 
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB conectado"))
   .catch((err) => console.error("❌ Erro ao conectar MongoDB:", err));
 
-dotenv.config();
+// 🔹 Modelo Ticket
+const ticketSchema = new mongoose.Schema({
+  ticketCode: { type: String, required: true, unique: true },
+  fullName: { type: String },
+  phone: { type: String },
+  status: { type: String, default: "pending" }, // pending, confirmed, used
+  createdAt: { type: Date, default: Date.now },
+});
+
+const Ticket = mongoose.model("Ticket", ticketSchema);
 
 const app = express();
 
 // 🔸 Configuração de CORS
-app.use(cors({
+const corsOptions = {
   origin: [
     "http://localhost:3000",
-    "rapgamefestival.vercel.app",
-    "https://rapgamefestival.vercel.app",
-    "https://www.rapgamefestival.vercel.app"
+    "https://rapgamefestival.vercel.app"
   ],
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-}));
+};
+
+app.use(cors(corsOptions));
 
 // 🔸 Mantém o rawBody para validação HMAC
 
@@ -35,8 +45,8 @@ app.use(express.json({ verify: (req, res, buf) => (req.rawBody = buf) }));
 // 🔹 Constantes principais
 const PAYSUITE_API = "https://paysuite.tech/api/v1/payments";
 const API_KEY = process.env.PAYSUITE_API_KEY;
-const CALLBACK_URL = process.env.CALLBACK_URL || "https://rapgame-festival.vercel.app/api/payments/webhook";
-const RETURN_URL = process.env.RETURN_URL || "https://rapgame-festival.vercel.app/sucesso";
+const CALLBACK_URL = process.env.CALLBACK_URL || "https://rapgamefestival.vercel.app/api/payments/webhook";
+const RETURN_URL = process.env.RETURN_URL || "https://rapgamefestival.vercel.app/sucesso";
 const WEBHOOK_SECRET = process.env.PAYSUITE_WEBHOOK_SECRET;
 
 // ⚠️ Verificação de variáveis obrigatórias
@@ -203,6 +213,45 @@ app.get("/api/payments/status/:reference", (req, res) => {
     status: "unknown",
     message: "Status de pagamento desconhecido.",
   });
+});
+
+app.post("/api/update-tickets", async (req, res) => {
+  try {
+    const { ticketCode, fullName, phone } = req.body;
+
+    if (!ticketCode) {
+      return res.status(400).json({ error: "ticketCode é obrigatório" });
+    }
+
+    // Tenta atualizar se já existe
+    let ticket = await Ticket.findOne({ ticketCode });
+    if (ticket) {
+      ticket.fullName = fullName || ticket.fullName;
+      ticket.phone = phone || ticket.phone;
+      ticket.status = "confirmed";
+    } else {
+      ticket = new Ticket({ ticketCode, fullName, phone, status: "confirmed" });
+    }
+
+    await ticket.save();
+    console.log("✅ Ticket salvo no DB:", ticket);
+
+    res.json({ status: "success", message: "Ticket salvo com sucesso!", ticket });
+  } catch (err) {
+    console.error("❌ Erro ao salvar ticket:", err);
+    res.status(500).json({ error: "Erro ao salvar ticket no banco de dados" });
+  }
+});
+
+// 🔹 Endpoint para consultar tickets
+app.get("/api/tickets/:ticketCode", async (req, res) => {
+  try {
+    const ticket = await Ticket.findOne({ ticketCode: req.params.ticketCode });
+    if (!ticket) return res.status(404).json({ error: "Ticket não encontrado" });
+    res.json(ticket);
+  } catch (err) {
+    res.status(500).json({ error: "Erro ao consultar ticket" });
+  }
 });
 
 
