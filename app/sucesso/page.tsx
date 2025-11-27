@@ -25,7 +25,7 @@ export default function BilheteSucesso() {
   // Generate unique BAC code
   const generateTicketCode = (): string => {
     const randomPart = () => Math.floor(100 + Math.random() * 900).toString();
-    return `RGF-${randomPart()}-${randomPart()}-${randomPart()}-STX`;
+    return `BAC-${randomPart()}-${randomPart()}-${randomPart()}-STX`;
   };
 
   // On page load, generate a ticket object
