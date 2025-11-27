@@ -46,7 +46,7 @@ const handlePayment = async () => {
       amount,
       reference: `RAPGAMEFESTIVAL`,
       description,
-      return_url: "https://rapgame-festival.vercel.app/sucesso",
+      return_url: "https://rapgamefestival.vercel.app/sucesso",
     };
 
     const response = await fetch(API_URL, {
